@@ -86,3 +86,4 @@ public:
     //void setAccount();  старая функция заменил на setNewAccount
     void setNewAccount(string newAcc, string newPar);//создание нового аккаунта
 };
+ 

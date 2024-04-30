@@ -130,9 +130,6 @@
     <ClCompile Include="chat.cpp" />
     <ClCompile Include="main_chat.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="chatr.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

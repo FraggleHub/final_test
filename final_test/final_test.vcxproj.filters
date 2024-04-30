@@ -22,9 +22,4 @@
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="chatr.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-  </ItemGroup>
 </Project>
