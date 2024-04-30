@@ -1,80 +1,88 @@
 ﻿#pragma once
+
 #include <iostream>
 using namespace std;
 
-//------------------------
-class stringMasive // обрезок класса контейнера от интЭррэй для стрингов
-{
-public:
-    int m_length;
-    string* m_chat = new string[m_length];
+//глобальные счетчики перемееные для массива аккаунтов "class accMasive"
+static int i3 = -1; // элемент массива (пользователь одновременно и его ID)
+static int n3 = 1; // размер массива (количество аккаунтов или пользователей)
 
-    stringMasive();
+//------------------------
+class stringMasive //  класса контейнер стрингов (всех сообщений в чате)
+{
+public: // вся прога пока на паблике выполнена
+    int m_length;
+    string* m_chat = new string[m_length]; // массив сообщений
+
+    stringMasive(); // конструкторы, деструкторы
     stringMasive(int length);
     ~stringMasive();
 
-    stringMasive(const stringMasive& other); // : m_length(other.m_length) //
-    void resize(int newLength); // ресайзер из того же контейнера
+    //stringMasive(const stringMasive& other); // : m_length(other.m_length) //
+
+    void resize(int newLength); // ресайзер (добавляет новую строку, сообщение)
 };
 //---------------------------------------
-class IntArray
+class IntArray // класс для хранения ID отправителя получателя
 {
 public:
     //private:
     int m_length10;
-    int* m_data = new int[m_length10];      // () {};
-    //public:
-    IntArray(); // = default;
+    int* m_data = new int[m_length10];// массив для отправителя или получателя 
+    IntArray(); // конструкторы, деструкторы;
     IntArray(int length);
     ~IntArray();
-    void resize(int newLength);
+    void resize(int newLength);// ресайзер ("добавляет для сообщения", ID отправителя/получателя)
 };
 
-
 //-----------------------------------------
-class Chat// : public Account // класс чат в ктором создается контейнер стрингов
+class Chat
+    // класс чат в котором создается три массива (сообщений, отправителя и получателя)
 {
 public:
 
-    stringMasive* Messenger;
-    IntArray* Sender;
-    IntArray* Recipient;
-    Chat();
+    stringMasive* Messenger; // контейнер сообщений
+    IntArray* Sender; //контейнер отправителей
+    IntArray* Recipient; // контейнер получателей
+    Chat(); // конструктор, деструктор
     ~Chat();
 };
 //---------------------------------------------------------
 
 
-class Account // : public Chat// уже не нсаледник ЧАТ
+class Account // класс пользователя
 {
 public:
-    string _name, _parole;    // имя
+    string _name, _parole;    // имя, пароль
     short _id; // id
+    //конструкторы, деструкторы
     Account();
     Account(string name); // :_name(name) {}; // конструктор аккаунта с именем
     Account(string name, short id); // :_name(name), _id(id) {}; // конструктор аккаунта с именем и возрастом
     Account(string name, string parole);
     ~Account();
 
-    Chat* createChat();
-    void setMessage(Chat* T, int UserID);			// написать в чат 
-    void GetMessage(Chat* T);			// прочитать  сообщение 
+    //Chat* createChat(); не нужная сейчас функция (если вообще нужна)
+
+    void setMessage(Chat* T, int UserID);// написать в чат (массив стрингов) 
+    void setMesAll(Chat* T); //написать в чат всем
+
+    void GetMessage(Chat* T);			// прочитать  сообщение(из массива стрингов) 
 };
 
 //------------------------------------------------------------------
 
-
-/*class MassAccount
+class accMasive // класс массив пользователей (массив класса Account)
 {
-    public:
+public:
+    int acc_length;
+    Account* m_acc = new Account[acc_length]; // массив Account
 
-    Account * chater = new Account[3];
-    MassAccount ()
-    {
+    accMasive(); // конструкторы, деструкторы
+    accMasive(int length);
+    ~accMasive();
 
-    }
-    ~MassAccount ()
-    {
-      delete [] chater;
-    }
-};*/
+    void resize(int newLength); // ресайзер (добавляет аккаунт)
+    //void setAccount();  старая функция заменил на setNewAccount
+    void setNewAccount(string newAcc, string newPar);//создание нового аккаунта
+};
