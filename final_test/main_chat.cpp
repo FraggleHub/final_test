@@ -7,6 +7,7 @@ using namespace std;
 
 int main()
 {
+   cout << "Hello";
     accMasive* Acc = new accMasive(n3); // создаем массив аккаунтов (пользователей)
     bool prog = 1; // перемееная для зацикливания выполнения программы
     bool account = 0; // переменная для зацикливания написания сообщения из аккаунта
