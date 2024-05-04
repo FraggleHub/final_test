@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include <iostream>
 
 using namespace std;
@@ -28,3 +28,4 @@ public:
 
 	void newUser(string login, string pass, string name);
 };
+*/

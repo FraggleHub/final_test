@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <Windows.h>
-
+#include  "chat.h"
 using namespace std;
 
 int main()
@@ -8,6 +8,7 @@ int main()
 #pragma region setting russian chat
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
+    Menu();
 #pragma endregion
 
     //да какого фига не загружается на гит то

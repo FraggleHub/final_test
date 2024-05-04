@@ -1,4 +1,4 @@
-#include "InitProgram.h"
+/*#include "InitProgram.h"
 #include <iostream>
 #include "Accounts.h"
 
@@ -13,3 +13,4 @@ InitProgram::InitProgram() {
 		cout << "Пользователей не найдено, просьба добавить" << endl;
 	}
 }
+*/

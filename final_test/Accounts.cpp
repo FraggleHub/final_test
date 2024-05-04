@@ -1,4 +1,4 @@
-#include "Accounts.h"
+/*#include "Accounts.h"
 
 Accounts::Accounts(int length) : _length(length) { }
 Accounts::~Accounts() {	delete[] user; }
@@ -42,3 +42,4 @@ void Accounts::newUser(string login, string pass, string name) {
 	cin >> name;
 	cout << "Пользователь добавлен." << endl;
 }
+*/

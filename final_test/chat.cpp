@@ -1,5 +1,5 @@
 ﻿#include  "chat.h"
-
+#include <string>
 #include <iostream>
 using namespace std;
 
@@ -202,5 +202,110 @@ void accMasive::setNewAccount(string newAcc, string newPar)			// new account
     m_acc[i3]._parole = newPar;
     m_acc[i3]._id = i3;
     accMasive::resize(++n3);
+    cout << "\nАккаунт успешно зарегистрирован! Ваш ID: " << m_acc[i3]._id << endl;
 }
 
+void Menu()
+{
+   // string messageText;
+    string newAccount, newParole;
+    accMasive* Acc = new accMasive(n3);
+    Chat* Chat1 = new Chat;
+    bool exitApp = true;
+
+    while (exitApp) {
+        int choice;
+        cout << "Добро пожаловать в чат!!!" << endl;
+        cout << "1. Регистрация" << endl;
+        cout << "2. Вход в аккаунт" << endl;
+        cout << "3. Выйти из приложения" << endl;
+        cout << "Выберите действие: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cout << "\t Регистрация!! " << endl << endl;
+            cout << "\t Введите ваш логин : ";
+
+            cin >> newAccount;
+            cout << endl << "\t Введите пароль : ";
+            cin >> newParole;
+
+            Acc->setNewAccount(newAccount, newParole);
+            cout << endl << " \n\tThat's GOOD!! You have registrated!! " << endl << endl;
+            break;
+        case 2: {
+            int Id;
+            cout << "\nВведите ваш ID: ";
+            cin >> Id;
+            cout << "Введите логин: ";
+            cin >> newAccount;
+            cout << "Введите пароль: ";
+            cin >> newParole;
+
+            if (Acc->m_acc[Id]._name == newAccount && Acc->m_acc[Id]._parole == newParole) {
+                bool logoutAccount = true;
+
+                while (logoutAccount) {
+                    int choice1;
+
+                    cout << "1. Отправить сообщение всем" << endl;
+                    cout << "2. Отправить сообщение конкретному пользователю" << endl;
+                    cout << "3. Просмотреть полученные сообщения" << endl;
+                    cout << "4. Выйти из аккаунта" << endl;
+                    cout << "Выберите действие: ";
+                    cin >> choice1;
+
+                    switch (choice1) {
+                    case 1:
+                       // cout << "Введите текст сообщения для отправки всем: ";
+                       // cin.ignore();
+                       // getline(cin, messageText);
+
+                        Acc->m_acc[Id].setMesAll(Chat1); // Отправить сообщение всем
+
+                        cout << "Сообщение успешно отправлено всем пользователям!" << endl;
+
+                        break;
+                    case 2:
+                        int recipientId;
+                        cout << "Введите ID получателя: ";
+                        cin >> recipientId;
+
+                        if (recipientId >= 0 && recipientId < n3) {
+                           // cout << "Введите текст сообщения для отправки пользователю - " << endl;
+                           // cin.ignore();
+                           // getline(cin, messageText);
+
+                            Acc->m_acc[Id].setMessage(Chat1, recipientId); // отправляем сообщение конкретному пользователю
+                            cout << "Сообщение успешно отправлено " << endl;
+                        }
+                        else {
+                            cout << "Получатель с ID " << recipientId << " не существует. Попробуйте снова." << endl;
+                        }
+                        break;
+                    case 3:
+
+                        Acc->m_acc[Id].GetMessage(Chat1);
+                        break;
+                    case 4:
+                        logoutAccount = false;
+                        break;
+                    default:
+                        cout << "Неверный выбор. Попробуйте снова." << endl;
+                    }
+                }
+            }
+            else {
+                cout << "Ошибка входа. Проверьте логин и пароль." << endl;
+            }
+            break;
+        }
+        case 3:
+            exitApp = false;
+            break;
+        default:
+            cout << "Неверный выбор. Попробуйте снова." << endl;
+        }
+    }
+}
