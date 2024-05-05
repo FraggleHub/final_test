@@ -212,100 +212,115 @@ void Menu()
     accMasive* Acc = new accMasive(n3);
     Chat* Chat1 = new Chat;
     bool exitApp = true;
+    int choice, choice1, Id, recipientId;
 
     while (exitApp) {
-        int choice;
+        string input;
         cout << "Добро пожаловать в чат!!!" << endl;
         cout << "1. Регистрация" << endl;
         cout << "2. Вход в аккаунт" << endl;
         cout << "3. Выйти из приложения" << endl;
         cout << "Выберите действие: ";
-        cin >> choice;
 
-        switch (choice) {
-        case 1:
-            cout << "\t Регистрация!! " << endl << endl;
-            cout << "\t Введите ваш логин : ";
+        cin >> input;
 
-            cin >> newAccount;
-            cout << endl << "\t Введите пароль : ";
-            cin >> newParole;
+        try {
+            choice = stoi(input);
+            switch (choice) {
+            case 1:
+                cout << "\t Регистрация!! " << endl << endl;
+                cout << "\t Введите ваш логин : ";
 
-            Acc->setNewAccount(newAccount, newParole);
-            cout << endl << " \n\tThat's GOOD!! You have registrated!! " << endl << endl;
-            break;
-        case 2: {
-            int Id;
-            cout << "\nВведите ваш ID: ";
-            cin >> Id;
-            cout << "Введите логин: ";
-            cin >> newAccount;
-            cout << "Введите пароль: ";
-            cin >> newParole;
+                cin >> newAccount;
+                cout << endl << "\t Введите пароль : ";
+                cin >> newParole;
 
-            if (Acc->m_acc[Id]._name == newAccount && Acc->m_acc[Id]._parole == newParole) {
-                bool logoutAccount = true;
+                Acc->setNewAccount(newAccount, newParole);
+                cout << endl << " \n\tThat's GOOD!! You have registrated!! " << endl << endl;
+                break;
+            case 2: {
+                string text;
 
-                while (logoutAccount) {
-                    int choice1;
+                cout << "\nВведите ваш ID: ";
+                cin >> text;
+                Id = stoi(text);
 
-                    cout << "1. Отправить сообщение всем" << endl;
-                    cout << "2. Отправить сообщение конкретному пользователю" << endl;
-                    cout << "3. Просмотреть полученные сообщения" << endl;
-                    cout << "4. Выйти из аккаунта" << endl;
-                    cout << "Выберите действие: ";
-                    cin >> choice1;
+                cout << "Введите логин: ";
+                cin >> newAccount;
+                cout << "Введите пароль: ";
+                cin >> newParole;
 
-                    switch (choice1) {
-                    case 1:
-                       // cout << "Введите текст сообщения для отправки всем: ";
-                       // cin.ignore();
-                       // getline(cin, messageText);
+                if (Acc->m_acc[Id]._name == newAccount && Acc->m_acc[Id]._parole == newParole) {
+                    bool logoutAccount = true;
 
-                        Acc->m_acc[Id].setMesAll(Chat1); // Отправить сообщение всем
+                    while (logoutAccount) {
 
-                        cout << "Сообщение успешно отправлено всем пользователям!" << endl;
+                        cout << "1. Отправить сообщение всем" << endl;
+                        cout << "2. Отправить сообщение конкретному пользователю" << endl;
+                        cout << "3. Просмотреть полученные сообщения" << endl;
+                        cout << "4. Выйти из аккаунта" << endl;
+                        cout << "Выберите действие: ";
+                        cin >> input;
 
-                        break;
-                    case 2:
-                        int recipientId;
-                        cout << "Введите ID получателя: ";
-                        cin >> recipientId;
+                        choice1 = stoi(input);
 
-                        if (recipientId >= 0 && recipientId < n3) {
-                           // cout << "Введите текст сообщения для отправки пользователю - " << endl;
-                           // cin.ignore();
-                           // getline(cin, messageText);
+                        switch (choice1) {
+                        case 1:
+                            // cout << "Введите текст сообщения для отправки всем: ";
+                            // cin.ignore();
+                            // getline(cin, messageText);
 
-                            Acc->m_acc[Id].setMessage(Chat1, recipientId); // отправляем сообщение конкретному пользователю
-                            cout << "Сообщение успешно отправлено " << endl;
+                            Acc->m_acc[Id].setMesAll(Chat1); // Отправить сообщение всем
+
+                            cout << "Сообщение успешно отправлено всем пользователям!" << endl;
+
+                            break;
+                        case 2:
+                            cout << "Введите ID получателя: ";
+                            cin >> input;
+
+                            recipientId = stoi(input);
+
+                            if (recipientId >= 0 && recipientId < n3) {
+                                // cout << "Введите текст сообщения для отправки пользователю - " << endl;
+                                // cin.ignore();
+                                // getline(cin, messageText);
+
+                                Acc->m_acc[Id].setMessage(Chat1, recipientId); // отправляем сообщение конкретному пользователю
+                                cout << "Сообщение успешно отправлено " << endl;
+                            }
+                            else {
+                                cout << "Получатель с ID " << recipientId << " не существует. Попробуйте снова." << endl;
+                            }
+                            break;
+                        case 3:
+                            Acc->m_acc[Id].GetMessage(Chat1);
+                            break;
+                        case 4:
+                            logoutAccount = false;
+                            break;
+                        default:
+                            cout << "Неверный выбор. Попробуйте снова." << endl;
                         }
-                        else {
-                            cout << "Получатель с ID " << recipientId << " не существует. Попробуйте снова." << endl;
-                        }
-                        break;
-                    case 3:
-
-                        Acc->m_acc[Id].GetMessage(Chat1);
-                        break;
-                    case 4:
-                        logoutAccount = false;
-                        break;
-                    default:
-                        cout << "Неверный выбор. Попробуйте снова." << endl;
                     }
                 }
+                else {
+                    cout << "Ошибка входа. Проверьте логин и пароль." << endl;
+                }
+                break;
             }
-            else {
-                cout << "Ошибка входа. Проверьте логин и пароль." << endl;
+            case 3:
+                exitApp = false;
+                break;
+            default:
+                cout << "Неверный выбор. Попробуйте снова." << endl;
             }
-            break;
         }
-        case 3:
-            exitApp = false;
-            break;
-        default:
-            cout << "Неверный выбор. Попробуйте снова." << endl;
+        catch (invalid_argument const &e) {
+            cout << "Ошибка! \nНеверный формат числа!" << endl;
+        }
+        catch (out_of_range const& e) {
+            cout << "Ошибка! \nЧисло вне диапазона int" << endl;
         }
     }
 }
