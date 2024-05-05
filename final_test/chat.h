@@ -85,6 +85,8 @@ public:
     void resize(int newLength); // ресайзер (добавляет аккаунт)
     //void setAccount();  старая функция заменил на setNewAccount
     void setNewAccount(string newAcc, string newPar);//создание нового аккаунта
+    void showAllUsers();
+
 };
 void Menu();
- 
+

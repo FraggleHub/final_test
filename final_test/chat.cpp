@@ -205,6 +205,15 @@ void accMasive::setNewAccount(string newAcc, string newPar)			// new account
     cout << "\nАккаунт успешно зарегистрирован! Ваш ID: " << m_acc[i3]._id << endl;
 }
 
+void accMasive::showAllUsers()
+{
+    cout << "Все зарегистрированные пользователи:" << endl;
+    for (int i = 0; i < n3; ++i)
+    {
+        cout << "ID: " << m_acc[i]._id << " Логин: " << m_acc[i]._name << endl;
+    }
+}
+
 void Menu()
 {
    // string messageText;
@@ -276,6 +285,7 @@ void Menu()
 
                             break;
                         case 2:
+                            Acc->showAllUsers();
                             cout << "Введите ID получателя: ";
                             cin >> input;
 
@@ -324,3 +334,4 @@ void Menu()
         }
     }
 }
+
