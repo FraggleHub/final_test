@@ -89,6 +89,16 @@ Account::~Account() {};
     return T;
 }*/
 
+void Account::setLogin(string newLogin)
+{
+    _name = newLogin;
+}
+
+void Account::setPassword(string newPassword)
+{
+    _parole = newPassword;
+}
+
 void Account::setMessage(Chat* T, int UserID) // написать в чат 
 {
 
@@ -141,6 +151,17 @@ void Account::GetMessage(Chat* T)	// прочитать  сообщение
     {
         cout << "\n\t\t\t\ ----    You Have No Messages  -----! \n" << endl;
     }
+}
+void Account::changeUser(string newLogin, string newPassword) 
+{
+    
+    cout << "Введите новый логин: ";
+    cin >> newLogin;
+    setLogin(newLogin);
+    cout << "Введите новый пароль: ";
+    cin >> newPassword;
+    setPassword(newPassword);
+    cout << "Данные пользователя успешно изменены!" << endl;
 }
 /*void Account::GetMessage(Chat* T)	// прочитать  сообщение
 {
@@ -201,6 +222,7 @@ void accMasive::setNewAccount(string newAcc, string newPar)			// new account
     m_acc[++i3]._name = newAcc;
     m_acc[i3]._parole = newPar;
     m_acc[i3]._id = i3;
+    m_acc[i3]._currentUser = false;
     accMasive::resize(++n3);
     cout << "\nАккаунт успешно зарегистрирован! Ваш ID: " << m_acc[i3]._id << endl;
 }
@@ -210,8 +232,23 @@ void accMasive::showAllUsers()
     cout << "Все зарегистрированные пользователи:" << endl;
     for (int i = 0; i < n3; ++i)
     {
-        cout << "ID: " << m_acc[i]._id << " Логин: " << m_acc[i]._name << endl;
+        if (m_acc[i]._currentUser) {
+            cout << "ID: " << m_acc[i]._id << " Логин: " << m_acc[i]._name << " (Вы)" << endl;
+        }
+        else {
+            cout << "ID: " << m_acc[i]._id << " Логин: " << m_acc[i]._name << endl;
+        }
     }
+}
+
+void accMasive::updateCurrentUser(int Id) //Метод для обновления текущего пользователя 
+{
+    for (int i = 0; i < n3; ++i) {
+        if (m_acc[i]._currentUser) {
+            m_acc[i]._currentUser = false; 
+        }
+    }
+    m_acc[Id]._currentUser = true; 
 }
 
 void Menu()
@@ -222,7 +259,7 @@ void Menu()
     Chat* Chat1 = new Chat;
     bool exitApp = true;
     int choice, choice1, Id, recipientId;
-
+    string newLogin, newPassword;
     while (exitApp) {
         string input;
         cout << "Добро пожаловать в чат!!!" << endl;
@@ -260,6 +297,7 @@ void Menu()
                 cin >> newParole;
 
                 if (Acc->m_acc[Id]._name == newAccount && Acc->m_acc[Id]._parole == newParole) {
+                    Acc->updateCurrentUser(Id);
                     bool logoutAccount = true;
 
                     while (logoutAccount) {
@@ -267,7 +305,8 @@ void Menu()
                         cout << "1. Отправить сообщение всем" << endl;
                         cout << "2. Отправить сообщение конкретному пользователю" << endl;
                         cout << "3. Просмотреть полученные сообщения" << endl;
-                        cout << "4. Выйти из аккаунта" << endl;
+                        cout << "4. Изменение Логина и Пароля" << endl;
+                        cout << "5. Выйти из аккаунта" << endl;
                         cout << "Выберите действие: ";
                         cin >> input;
 
@@ -279,7 +318,7 @@ void Menu()
                             // cin.ignore();
                             // getline(cin, messageText);
 
-                            Acc->m_acc[Id].setMesAll(Chat1); // Отправить сообщение всем
+                            Acc->m_acc[Id].setMesAll(Chat1); 
 
                             cout << "Сообщение успешно отправлено всем пользователям!" << endl;
 
@@ -307,6 +346,9 @@ void Menu()
                             Acc->m_acc[Id].GetMessage(Chat1);
                             break;
                         case 4:
+                            Acc->m_acc[Id].changeUser(newLogin, newPassword);
+                            break;
+                        case 5:
                             logoutAccount = false;
                             break;
                         default:

@@ -53,6 +53,7 @@ public:
 class Account // класс пользователя
 {
 public:
+    bool _currentUser;
     string _name, _parole;    // имя, пароль
     short _id; // id
     //конструкторы, деструкторы
@@ -63,12 +64,15 @@ public:
     ~Account();
 
     //Chat* createChat(); не нужная сейчас функция (если вообще нужна)
-
+    void setLogin(string newLogin);
+    void setPassword(string newPassword);
     void setMessage(Chat* T, int UserID);// написать в чат (массив стрингов) 
     void setMesAll(Chat* T); //написать в чат всем
 
     void GetMessage(Chat* T);			// прочитать  сообщение(из массива стрингов) 
+    void changeUser(string newLogin, string newPassword);
 };
+
 
 //------------------------------------------------------------------
 
@@ -86,7 +90,7 @@ public:
     //void setAccount();  старая функция заменил на setNewAccount
     void setNewAccount(string newAcc, string newPar);//создание нового аккаунта
     void showAllUsers();
-
+    void updateCurrentUser(int Id);
 };
 void Menu();
 
