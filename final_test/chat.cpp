@@ -30,16 +30,16 @@ stringMasive::~stringMasive()
     }
 } */
 
-void stringMasive::resize(int newLength) // ресайзер 
+void stringMasive::resize() // ресайзер 
 {
-    string* chat = new string[newLength];
+    string* chat = new string[++n1];
     for (int index = 0; index < m_length; ++index)
     {
         chat[index] = m_chat[index];
     }
     delete[]m_chat;
     m_chat = chat;
-    m_length = newLength;
+    m_length = n1;
 }
 
 //--------------------------------------------------------
@@ -50,17 +50,30 @@ IntArray::~IntArray()
     delete[] m_data;
 }
 
-void IntArray::resize(int newLength)
+void IntArray::resizeSender()
 {
-    int* data = new int[newLength];
+    int* data = new int[++n0];
     for (int index = 0; index < m_length10; ++index)
     {
         data[index] = m_data[index];
     }
     delete[] m_data;
     m_data = data;
-    m_length10 = newLength;
+    m_length10 = n0;
 }
+
+void IntArray::resizeRecipient()
+{
+    int* data = new int[++n2];
+    for (int index = 0; index < m_length10; ++index)
+    {
+        data[index] = m_data[index];
+    }
+    delete[] m_data;
+    m_data = data;
+    m_length10 = n2;
+}
+
 //-------------------------------------
 Chat::Chat()
 {
@@ -107,13 +120,13 @@ void Account::setMessage(Chat* T, int UserID) // написать в чат
     cin >> str;
 
     T->Sender->m_data[++i0] = _id;
-    T->Sender->resize(++n0);
+    T->Sender->resizeSender();
 
     T->Messenger->m_chat[++i1] = _name + " : " + str;
-    T->Messenger->resize(++n1);
+    T->Messenger->resize();
 
     T->Recipient->m_data[++i2] = UserID;
-    T->Recipient->resize(++n2);
+    T->Recipient->resizeRecipient();
 }
 
 void Account::setMesAll(Chat* T) // написать в чат
@@ -124,13 +137,13 @@ void Account::setMesAll(Chat* T) // написать в чат
     cin >> strAll;
 
     T->Sender->m_data[++i0] = _id;
-    T->Sender->resize(++n0);
+    T->Sender->resizeSender();
 
     T->Messenger->m_chat[++i1] = _name + " writes to All : " + strAll;
-    T->Messenger->resize(++n1);
+    T->Messenger->resize();
 
     T->Recipient->m_data[++i2] = -1;// "-1" взял наобум, хоть "-3" , все что с "-1" это отпрвака всем;
-    T->Recipient->resize(++n2);
+    T->Recipient->resizeRecipient();
 }
 
 void Account::GetMessage(Chat* T)	// прочитать  сообщение 
