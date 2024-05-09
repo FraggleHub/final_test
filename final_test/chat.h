@@ -1,15 +1,19 @@
 ﻿#pragma once
 
 #include <iostream>
+
 using namespace std;
 
-//глобальные счетчики перемееные для массива аккаунтов "class accMasive"
+#pragma region глобальные переменные
+
 static int i3 = -1; // элемент массива (пользователь одновременно и его ID)
 static int n3 = 1; // размер массива (количество аккаунтов или пользователей)
 
-//------------------------
-class stringMasive //  класса контейнер стрингов (всех сообщений в чате)
-{
+#pragma endregion
+
+#pragma region класс контейнера текста всех сообщений в чате
+
+class stringMasive {
 public: // вся прога пока на паблике выполнена
     int m_length;
     string* m_chat = new string[m_length]; // массив сообщений
@@ -22,11 +26,13 @@ public: // вся прога пока на паблике выполнена
 
     void resize(int newLength); // ресайзер (добавляет новую строку, сообщение)
 };
-//---------------------------------------
-class IntArray // класс для хранения ID отправителя получателя
-{
+
+#pragma endregion
+
+#pragma region класс для хранения id отправителя получателя
+
+class IntArray {
 public:
-    //private:
     int m_length10;
     int* m_data = new int[m_length10];// массив для отправителя или получателя 
     IntArray(); // конструкторы, деструкторы;
@@ -35,23 +41,24 @@ public:
     void resize(int newLength);// ресайзер ("добавляет для сообщения", ID отправителя/получателя)
 };
 
-//-----------------------------------------
-class Chat
-    // класс чат в котором создается три массива (сообщений, отправителя и получателя)
-{
-public:
+#pragma endregion
 
+#pragma region чат на 3-х массивах
+
+class Chat {
+public:
     stringMasive* Messenger; // контейнер сообщений
     IntArray* Sender; //контейнер отправителей
     IntArray* Recipient; // контейнер получателей
     Chat(); // конструктор, деструктор
     ~Chat();
 };
-//---------------------------------------------------------
 
+#pragma endregion
 
-class Account // класс пользователя
-{
+#pragma region класс пользователей
+
+class Account {
 public:
     bool _currentUser;
     string _name, _parole;    // имя, пароль
@@ -73,24 +80,32 @@ public:
     void changeUser(string newLogin, string newPassword);
 };
 
+#pragma endregion
 
-//------------------------------------------------------------------
+#pragma region массив пользователей
 
-class accMasive // класс массив пользователей (массив класса Account)
-{
-public:
+class accMasive {
+protected:
     int acc_length;
-    Account* m_acc = new Account[acc_length]; // массив Account
+    Account* m_acc = new Account[acc_length];
+public:
 
     accMasive(); // конструкторы, деструкторы
     accMasive(int length);
     ~accMasive();
 
+    void resize(); //новый ресайз замена старому
+    int getSize() const; // получение размера массива
     void resize(int newLength); // ресайзер (добавляет аккаунт)
-    //void setAccount();  старая функция заменил на setNewAccount
     void setNewAccount(string newAcc, string newPar);//создание нового аккаунта
     void showAllUsers();
     void updateCurrentUser(int Id);
 };
+
+#pragma endregion
+
+#pragma region основное меню
+
 void Menu();
 
+#pragma endregion

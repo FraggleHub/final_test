@@ -1,17 +1,19 @@
-﻿#include  "chat.h"
+﻿#include "chat.h"
 #include <string>
 #include <iostream>
+
 using namespace std;
 
-// глобальные переменные
-static int i0 = -1;// элемент массива (отправитель Sender)
-static int n0 = 1; // размер массива (отправители Sender)
+#pragma region глобальные переменные
+    static int i0 = -1;// элемент массива (отправитель Sender)
+    static int n0 = 1; // размер массива (отправители Sender)
 
-static int i1 = -1;// элемент массива (сообщение Messenger)
-static int n1 = 1;// размер массива (все сообщения Messenger)
+    static int i1 = -1;// элемент массива (сообщение Messenger)
+    static int n1 = 1;// размер массива (все сообщения Messenger)
 
-static int i2 = -1; //элемент массива(получатель Recipient)
-static int n2 = 1; // размер массива (получатели Recipient)
+    static int i2 = -1; //элемент массива(получатель Recipient)
+    static int n2 = 1; // размер массива (получатели Recipient)
+#pragma endregion
 
 //------------------------------------------------
 stringMasive::stringMasive() {}
@@ -188,7 +190,7 @@ accMasive::accMasive(int length) :acc_length(length) {};
 accMasive::~accMasive()
 {
     delete[]m_acc;
-};
+}
 
 void accMasive::resize(int newLength) // ресайзер 
 {
