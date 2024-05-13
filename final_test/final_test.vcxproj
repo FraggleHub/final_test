@@ -128,7 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="chat.cpp" />
-    <ClCompile Include="InitProgram.cpp" />
     <ClCompile Include="main_chat.cpp" />
   </ItemGroup>
   <ItemGroup>

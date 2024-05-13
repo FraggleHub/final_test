@@ -19,9 +19,6 @@
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
     <ClCompile Include="chat.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="InitProgram.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
