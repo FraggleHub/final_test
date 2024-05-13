@@ -127,13 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Accounts.cpp" />
     <ClCompile Include="chat.cpp" />
     <ClCompile Include="InitProgram.cpp" />
     <ClCompile Include="main_chat.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Accounts.h" />
     <ClInclude Include="chat.h" />
     <ClInclude Include="InitProgram.h" />
   </ItemGroup>

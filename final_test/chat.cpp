@@ -3,7 +3,8 @@
 #include <iostream>
 using namespace std;
 
-// глобальные переменные
+#pragma region global init
+
 static int i0 = -1;// элемент массива (отправитель Sender)
 static int n0 = 1; // размер массива (отправители Sender)
 
@@ -13,13 +14,13 @@ static int n1 = 1;// размер массива (все сообщения Mess
 static int i2 = -1; //элемент массива(получатель Recipient)
 static int n2 = 1; // размер массива (получатели Recipient)
 
-//------------------------------------------------
+#pragma endregion
+
+#pragma region stringMassive
+
 stringMasive::stringMasive() {}
 stringMasive::stringMasive(int length) :m_length(length) {}
-stringMasive::~stringMasive()
-{
-    delete[]m_chat;
-}
+stringMasive::~stringMasive() { delete[]m_chat; }
 
 /*stringMasive::stringMasive(const stringMasive& other) : m_length(other.m_length) //
 {
@@ -42,21 +43,18 @@ void stringMasive::resize() // ресайзер
     m_length = n1;
 }
 
-//--------------------------------------------------------
+#pragma endregion
+
+#pragma region intArray
+
 IntArray::IntArray() {}    // = default;
 IntArray::IntArray(int length) : m_length10(length) {}
-IntArray::~IntArray()
-{
-    delete[] m_data;
-}
+IntArray::~IntArray() { delete[] m_data; }
 
-void IntArray::resizeSender()
-{
+void IntArray::resizeSender() {
     int* data = new int[++n0];
     for (int index = 0; index < m_length10; ++index)
-    {
         data[index] = m_data[index];
-    }
     delete[] m_data;
     m_data = data;
     m_length10 = n0;
@@ -66,15 +64,16 @@ void IntArray::resizeRecipient()
 {
     int* data = new int[++n2];
     for (int index = 0; index < m_length10; ++index)
-    {
         data[index] = m_data[index];
-    }
     delete[] m_data;
     m_data = data;
     m_length10 = n2;
 }
 
-//-------------------------------------
+#pragma endregion
+
+#pragma region chat
+
 Chat::Chat()
 {
     Sender = new IntArray(n0);
@@ -88,13 +87,16 @@ Chat::~Chat()
     delete Messenger;
     delete Recipient;
 }
-//---------------------------------------------------------
 
-Account::Account(string name) :_name(name) {}; // конструктор аккаунта с именем
-Account::Account(string name, short id) :_name(name), _id(id) {}; // конструктор аккаунта с именем и возрастом
-Account::Account(string name, string parole) :_name(name), _parole(parole) {};
-Account::Account() {};
-Account::~Account() {};
+#pragma endregion
+
+#pragma region account
+
+Account::Account(string name) :_name(name) {} // конструктор аккаунта с именем
+Account::Account(string name, short id) :_name(name), _id(id) {} // конструктор аккаунта с именем и возрастом
+Account::Account(string name, string parole) :_name(name), _parole(parole) {}
+Account::Account() {}
+Account::~Account() {}
 
 /*Chat* Account::createChat()
 {
@@ -102,19 +104,12 @@ Account::~Account() {};
     return T;
 }*/
 
-void Account::setLogin(string newLogin)
-{
-    _name = newLogin;
-}
+void Account::setLogin(string newLogin) { _name = newLogin; }
 
-void Account::setPassword(string newPassword)
-{
-    _parole = newPassword;
-}
+void Account::setPassword(string newPassword) { _parole = newPassword; }
 
 void Account::setMessage(Chat* T, int UserID) // написать в чат 
 {
-
     cout << "\n\t\t INPUT THE MESSAGE :  ";
     string str;
     cin >> str;
@@ -131,7 +126,6 @@ void Account::setMessage(Chat* T, int UserID) // написать в чат
 
 void Account::setMesAll(Chat* T) // написать в чат
 {
-
     cout << "\n\t\t INPUT THE MESSAGE to ALL:  ";
     string strAll;
     cin >> strAll;
@@ -150,7 +144,6 @@ void Account::GetMessage(Chat* T)	// прочитать  сообщение
 {
     int count = 0;
     for (int i = 0; i < n1; ++i)
-    {
         if (T->Recipient->m_data[i] == _id || (T->Sender->m_data[i] != _id && T->Recipient->m_data[i] == -1))
             // проверка совпадения id получателя и если отпрвалено всем, то чтобы самому не отоброжалось сообщение всем
         {
@@ -159,15 +152,10 @@ void Account::GetMessage(Chat* T)	// прочитать  сообщение
             cout << "\n\t It's Id is : # " << T->Sender->m_data[i] << "   ++++++" << "\n" << endl;
             count++;
         }
-    }
-    if (!count)
-    {
-        cout << "\n\t\t\t\ ----    You Have No Messages  -----! \n" << endl;
-    }
+    if (!count) cout << "\n\t\t\t\ ----    You Have No Messages  -----! \n" << endl;
 }
-void Account::changeUser(string newLogin, string newPassword) 
+void Account::changeUser(string newLogin, string newPassword)
 {
-    
     cout << "Введите новый логин: ";
     cin >> newLogin;
     setLogin(newLogin);
@@ -195,21 +183,19 @@ void Account::changeUser(string newLogin, string newPassword)
     }
 }*/
 
-//------------------------------------------------------
-accMasive::accMasive() {};
-accMasive::accMasive(int length) :acc_length(length) {};
-accMasive::~accMasive()
-{
-    delete[]m_acc;
-};
+#pragma endregion
+
+#pragma region accMassive
+
+accMasive::accMasive() {}
+accMasive::accMasive(int length) :acc_length(length) {}
+accMasive::~accMasive() { delete[]m_acc; }
 
 void accMasive::resize(int newLength) // ресайзер 
 {
     Account* m1_acc = new Account[newLength];
     for (int index = 0; index < acc_length; ++index)
-    {
         m1_acc[index] = m_acc[index];
-    }
     delete[] m_acc;
     m_acc = m1_acc;
     acc_length = newLength;
@@ -237,32 +223,31 @@ void accMasive::setNewAccount(string newAcc, string newPar)			// new account
     m_acc[i3]._id = i3;
     m_acc[i3]._currentUser = false;
     accMasive::resize(++n3);
-    cout << "\nАккаунт успешно зарегистрирован! Ваш ID: " << m_acc[i3]._id << endl;
+    std::cout << "\nАккаунт успешно зарегистрирован! Ваш ID: " << m_acc[i3]._id << endl;
 }
 
 void accMasive::showAllUsers()
 {
-    cout << "Все зарегистрированные пользователи:" << endl;
+    std::cout << "Все зарегистрированные пользователи:" << endl;
     for (int i = 0; i < n3; ++i)
     {
-        if (m_acc[i]._currentUser) {
-            cout << "ID: " << m_acc[i]._id << " Логин: " << m_acc[i]._name << " (Вы)" << endl;
-        }
-        else {
-            cout << "ID: " << m_acc[i]._id << " Логин: " << m_acc[i]._name << endl;
-        }
+        if (m_acc[i]._currentUser)
+            std::cout << "ID: " << m_acc[i]._id << " Логин: " << m_acc[i]._name << " (Вы)" << endl;
+        else
+            std::cout << "ID: " << m_acc[i]._id << " Логин: " << m_acc[i]._name << endl;
     }
 }
 
 void accMasive::updateCurrentUser(int Id) //Метод для обновления текущего пользователя 
 {
-    for (int i = 0; i < n3; ++i) {
-        if (m_acc[i]._currentUser) {
-            m_acc[i]._currentUser = false; 
-        }
-    }
-    m_acc[Id]._currentUser = true; 
+    for (int i = 0; i < n3; ++i)
+        if (m_acc[i]._currentUser)
+            m_acc[i]._currentUser = false;
+    m_acc[Id]._currentUser = true;
 }
+
+#pragma endregion
+
 
 void Menu()
 {
@@ -275,39 +260,39 @@ void Menu()
     string newLogin, newPassword;
     while (exitApp) {
         string input;
-        cout << "Добро пожаловать в чат!!!" << endl;
-        cout << "1. Регистрация" << endl;
-        cout << "2. Вход в аккаунт" << endl;
-        cout << "3. Выйти из приложения" << endl;
-        cout << "Выберите действие: ";
+        std::cout << "Добро пожаловать в чат!!!" << endl;
+        std::cout << "1. Регистрация" << endl;
+        std::cout << "2. Вход в аккаунт" << endl;
+        std::cout << "3. Выйти из приложения" << endl;
+        std::cout << "Выберите действие: ";
 
-        cin >> input;
+        std::cin >> input;
 
         try {
             choice = stoi(input);
             switch (choice) {
             case 1:
-                cout << "\t Регистрация!! " << endl << endl;
-                cout << "\t Введите ваш логин : ";
+                std::cout << "\t Регистрация!! " << endl << endl;
+                std::cout << "\t Введите ваш логин : ";
 
-                cin >> newAccount;
-                cout << endl << "\t Введите пароль : ";
-                cin >> newParole;
+                std::cin >> newAccount;
+                std::cout << endl << "\t Введите пароль : ";
+                std::cin >> newParole;
 
                 Acc->setNewAccount(newAccount, newParole);
-                cout << endl << " \n\tThat's GOOD!! You have registrated!! " << endl << endl;
+                std::cout << endl << " \n\tThat's GOOD!! You have registrated!! " << endl << endl;
                 break;
             case 2: {
                 string text;
 
-                cout << "\nВведите ваш ID: ";
-                cin >> text;
+                std::cout << "\nВведите ваш ID: ";
+                std::cin >> text;
                 Id = stoi(text);
 
-                cout << "Введите логин: ";
-                cin >> newAccount;
-                cout << "Введите пароль: ";
-                cin >> newParole;
+                std::cout << "Введите логин: ";
+                std::cin >> newAccount;
+                std::cout << "Введите пароль: ";
+                std::cin >> newParole;
 
                 if (Acc->m_acc[Id]._name == newAccount && Acc->m_acc[Id]._parole == newParole) {
                     Acc->updateCurrentUser(Id);
@@ -315,13 +300,13 @@ void Menu()
 
                     while (logoutAccount) {
 
-                        cout << "1. Отправить сообщение всем" << endl;
-                        cout << "2. Отправить сообщение конкретному пользователю" << endl;
-                        cout << "3. Просмотреть полученные сообщения" << endl;
-                        cout << "4. Изменение Логина и Пароля" << endl;
-                        cout << "5. Выйти из аккаунта" << endl;
-                        cout << "Выберите действие: ";
-                        cin >> input;
+                        std::cout << "1. Отправить сообщение всем" << endl;
+                        std::cout << "2. Отправить сообщение конкретному пользователю" << endl;
+                        std::cout << "3. Просмотреть полученные сообщения" << endl;
+                        std::cout << "4. Изменение Логина и Пароля" << endl;
+                        std::cout << "5. Выйти из аккаунта" << endl;
+                        std::cout << "Выберите действие: ";
+                        std::cin >> input;
 
                         choice1 = stoi(input);
 
@@ -331,15 +316,15 @@ void Menu()
                             // cin.ignore();
                             // getline(cin, messageText);
 
-                            Acc->m_acc[Id].setMesAll(Chat1); 
+                            Acc->m_acc[Id].setMesAll(Chat1);
 
-                            cout << "Сообщение успешно отправлено всем пользователям!" << endl;
+                            std::cout << "Сообщение успешно отправлено всем пользователям!" << endl;
 
                             break;
                         case 2:
                             Acc->showAllUsers();
-                            cout << "Введите ID получателя: ";
-                            cin >> input;
+                            std::cout << "Введите ID получателя: ";
+                            std::cin >> input;
 
                             recipientId = stoi(input);
 
@@ -349,11 +334,10 @@ void Menu()
                                 // getline(cin, messageText);
 
                                 Acc->m_acc[Id].setMessage(Chat1, recipientId); // отправляем сообщение конкретному пользователю
-                                cout << "Сообщение успешно отправлено " << endl;
+                                std::cout << "Сообщение успешно отправлено " << endl;
                             }
-                            else {
-                                cout << "Получатель с ID " << recipientId << " не существует. Попробуйте снова." << endl;
-                            }
+                            else
+                                std::cout << "Получатель с ID " << recipientId << " не существует. Попробуйте снова." << endl;
                             break;
                         case 3:
                             Acc->m_acc[Id].GetMessage(Chat1);
@@ -365,28 +349,26 @@ void Menu()
                             logoutAccount = false;
                             break;
                         default:
-                            cout << "Неверный выбор. Попробуйте снова." << endl;
+                            std::cout << "Неверный выбор. Попробуйте снова." << endl;
                         }
                     }
                 }
-                else {
-                    cout << "Ошибка входа. Проверьте логин и пароль." << endl;
-                }
+                else
+                    std::cout << "Ошибка входа. Проверьте логин и пароль." << endl;
                 break;
             }
             case 3:
                 exitApp = false;
                 break;
             default:
-                cout << "Неверный выбор. Попробуйте снова." << endl;
+                std::cout << "Неверный выбор. Попробуйте снова." << endl;
             }
         }
         catch (invalid_argument const &e) {
-            cout << "Ошибка! \nНеверный формат числа!" << endl;
+            std::cout << "Ошибка! \nНеверный формат числа!" << endl;
         }
         catch (out_of_range const& e) {
-            cout << "Ошибка! \nЧисло вне диапазона int" << endl;
+            std::cout << "Ошибка! \nЧисло вне диапазона int" << endl;
         }
     }
 }
-

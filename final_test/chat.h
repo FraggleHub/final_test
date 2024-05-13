@@ -1,14 +1,18 @@
 ﻿#pragma once
-
 #include <iostream>
+
 using namespace std;
 
-//глобальные счетчики перемееные для массива аккаунтов "class accMasive"
+#pragma region global int
+
 static int i3 = -1; // элемент массива (пользователь одновременно и его ID)
 static int n3 = 1; // размер массива (количество аккаунтов или пользователей)
 
-//------------------------
-class stringMasive //  класса контейнер стрингов (всех сообщений в чате)
+#pragma endregion
+
+#pragma region chatMassive
+
+class stringMasive
 {
 public: // вся прога пока на паблике выполнена
     int m_length;
@@ -23,7 +27,11 @@ public: // вся прога пока на паблике выполнена
     //void resize(int newLength); // ресайзер (добавляет новую строку, сообщение)
     void resize();// легкий апгрейд ресайзера. без входных данных
 };
-//---------------------------------------
+
+#pragma endregion
+
+#pragma region intArray
+
 class IntArray // класс для хранения ID отправителя получателя
 {
 public:
@@ -39,7 +47,10 @@ public:
 
 };
 
-//-----------------------------------------
+#pragma endregion
+
+#pragma region chat
+
 class Chat
     // класс чат в котором создается три массива (сообщений, отправителя и получателя)
 {
@@ -51,8 +62,10 @@ public:
     Chat(); // конструктор, деструктор
     ~Chat();
 };
-//---------------------------------------------------------
 
+#pragma endregion
+
+#pragma region account
 
 class Account // класс пользователя
 {
@@ -77,8 +90,9 @@ public:
     void changeUser(string newLogin, string newPassword);
 };
 
+#pragma endregion
 
-//------------------------------------------------------------------
+#pragma region accMassive
 
 class accMasive // класс массив пользователей (массив класса Account)
 {
@@ -96,5 +110,7 @@ public:
     void showAllUsers();
     void updateCurrentUser(int Id);
 };
-void Menu();
 
+#pragma endregion
+
+void Menu(); //главное меню
