@@ -152,7 +152,7 @@ void Account::GetMessage(Chat* T)	// прочитать  сообщение
             cout << "\n\t It's Id is : # " << T->Sender->m_data[i] << "   ++++++" << "\n" << endl;
             count++;
         }
-    if (!count) cout << "\n\t\t\t\ ----    You Have No Messages  -----! \n" << endl;
+    if (!count) cout << "\n\t\t\t\ ----    Нет новых сообщений  -----! \n" << endl;
 }
 void Account::changeUser(string newLogin, string newPassword)
 {
@@ -218,9 +218,17 @@ void accMasive::resize(int newLength) // ресайзер
 
 void accMasive::setNewAccount(string newAcc, string newPar)			// new account
 {
+    for (int i = 0; i < n3; ++i)
+    {
+        if (m_acc[i]._name == newAcc)
+        {
+            std::cout << "\nОшибка! Пользователь с логином " << newAcc << " уже существует. Пожалуйста, выберите другой логин." << std::endl;
+            return;
+        }
+    }
     m_acc[++i3]._name = newAcc;
     m_acc[i3]._parole = newPar;
-    m_acc[i3]._id = i3;
+    m_acc[i3]._id = i3+1;
     m_acc[i3]._currentUser = false;
     accMasive::resize(++n3);
     std::cout << "\nАккаунт успешно зарегистрирован! Ваш ID: " << m_acc[i3]._id << endl;
@@ -228,13 +236,18 @@ void accMasive::setNewAccount(string newAcc, string newPar)			// new account
 
 void accMasive::showAllUsers()
 {
-    std::cout << "Все зарегистрированные пользователи:" << endl;
+    std::cout << "Все зарегистрированные пользователи:" << std::endl;
     for (int i = 0; i < n3; ++i)
     {
-        if (m_acc[i]._currentUser)
-            std::cout << "ID: " << m_acc[i]._id << " Логин: " << m_acc[i]._name << " (Вы)" << endl;
-        else
-            std::cout << "ID: " << m_acc[i]._id << " Логин: " << m_acc[i]._name << endl;
+        if (!m_acc[i]._name.empty())
+        {
+            std::cout << "ID: " << m_acc[i]._id << " Логин: " << m_acc[i]._name;
+            if (m_acc[i]._currentUser)
+            {
+                std::cout << " (Вы)";
+            }
+            std::cout << std::endl;
+        }
     }
 }
 
@@ -280,7 +293,6 @@ void Menu()
                 std::cin >> newParole;
 
                 Acc->setNewAccount(newAccount, newParole);
-                std::cout << endl << " \n\tThat's GOOD!! You have registrated!! " << endl << endl;
                 break;
             case 2: {
                 string text;
