@@ -5,14 +5,14 @@ using namespace std;
 
 #pragma region global init
 
-static int i0 = -1;// элемент массива (отправитель Sender)
-static int n0 = 1; // размер массива (отправители Sender)
+//static int i0 = -1;// элемент массива (отправитель Sender)
+static int razmerSendera = 1; // размер массива (отправители Sender)
 
-static int i1 = -1;// элемент массива (сообщение Messenger)
-static int n1 = 1;// размер массива (все сообщения Messenger)
+//static int i1 = -1;// элемент массива (сообщение Messenger)
+static int razmerMessengera = 1;// размер массива (все сообщения Messenger)
 
-static int i2 = -1; //элемент массива(получатель Recipient)
-static int n2 = 1; // размер массива (получатели Recipient)
+//static int i2 = -1; //элемент массива(получатель Recipient)
+static int razmerRecipienta = 1; // размер массива (получатели Recipient)
 
 #pragma endregion
 
@@ -33,14 +33,14 @@ stringMasive::~stringMasive() { delete[]m_chat; }
 
 void stringMasive::resize() // ресайзер 
 {
-    string* chat = new string[++n1];
+    string* chat = new string[++razmerMessengera];
     for (int index = 0; index < m_length; ++index)
     {
         chat[index] = m_chat[index];
     }
     delete[]m_chat;
     m_chat = chat;
-    m_length = n1;
+    m_length = razmerMessengera;
 }
 
 #pragma endregion
@@ -52,22 +52,22 @@ IntArray::IntArray(int length) : m_length10(length) {}
 IntArray::~IntArray() { delete[] m_data; }
 
 void IntArray::resizeSender() {
-    int* data = new int[++n0];
+    int* data = new int[++razmerSendera];
     for (int index = 0; index < m_length10; ++index)
         data[index] = m_data[index];
     delete[] m_data;
     m_data = data;
-    m_length10 = n0;
+    m_length10 = razmerSendera;
 }
 
 void IntArray::resizeRecipient()
 {
-    int* data = new int[++n2];
+    int* data = new int[++razmerRecipienta];
     for (int index = 0; index < m_length10; ++index)
         data[index] = m_data[index];
     delete[] m_data;
     m_data = data;
-    m_length10 = n2;
+    m_length10 = razmerRecipienta;
 }
 
 #pragma endregion
@@ -76,9 +76,9 @@ void IntArray::resizeRecipient()
 
 Chat::Chat()
 {
-    Sender = new IntArray(n0);
-    Messenger = new stringMasive(n1);
-    Recipient = new IntArray(n2);
+    Sender = new IntArray(razmerSendera);
+    Messenger = new stringMasive(razmerMessengera);
+    Recipient = new IntArray(razmerRecipienta);
 }
 
 Chat::~Chat()
@@ -114,13 +114,13 @@ void Account::setMessage(Chat* T, int UserID) // написать в чат
     string str;
     cin >> str;
 
-    T->Sender->m_data[++i0] = _id;
+    T->Sender->m_data[razmerSendera-1] = _id;
     T->Sender->resizeSender();
 
-    T->Messenger->m_chat[++i1] = _name + " : " + str;
+    T->Messenger->m_chat[razmerMessengera-1] = _name + " : " + str;
     T->Messenger->resize();
 
-    T->Recipient->m_data[++i2] = UserID;
+    T->Recipient->m_data[razmerRecipienta-1] = UserID;
     T->Recipient->resizeRecipient();
 }
 
@@ -130,20 +130,20 @@ void Account::setMesAll(Chat* T) // написать в чат
     string strAll;
     cin >> strAll;
 
-    T->Sender->m_data[++i0] = _id;
+    T->Sender->m_data[razmerSendera - 1] = _id;
     T->Sender->resizeSender();
 
-    T->Messenger->m_chat[++i1] = _name + " writes to All : " + strAll;
+    T->Messenger->m_chat[razmerMessengera-1] = _name + " writes to All : " + strAll;
     T->Messenger->resize();
 
-    T->Recipient->m_data[++i2] = -1;// "-1" взял наобум, хоть "-3" , все что с "-1" это отпрвака всем;
+    T->Recipient->m_data[razmerRecipienta-1] = -1;// "-1" взял наобум, хоть "-3" , все что с "-1" это отпрвака всем;
     T->Recipient->resizeRecipient();
 }
 
 void Account::GetMessage(Chat* T)	// прочитать  сообщение 
 {
     int count = 0;
-    for (int i = 0; i < n1; ++i)
+    for (int i = 0; i < razmerMessengera; ++i)
         if (T->Recipient->m_data[i] == _id || (T->Sender->m_data[i] != _id && T->Recipient->m_data[i] == -1))
             // проверка совпадения id получателя и если отпрвалено всем, то чтобы самому не отоброжалось сообщение всем
         {
