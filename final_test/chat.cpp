@@ -110,9 +110,9 @@ void Account::setPassword(string newPassword) { _parole = newPassword; }
 
 void Account::setMessage(Chat* T, int UserID) // написать в чат 
 {
-    cout << "\n\t\t INPUT THE MESSAGE :  ";
+    cout << "\n\t\t Введите сообщение :  ";
     string str;
-    cin >> str;
+    getline(cin >> ws, str);
 
     T->Sender->m_data[razmerSendera-1] = _id;
     T->Sender->resizeSender();
@@ -126,17 +126,17 @@ void Account::setMessage(Chat* T, int UserID) // написать в чат
 
 void Account::setMesAll(Chat* T) // написать в чат
 {
-    cout << "\n\t\t INPUT THE MESSAGE to ALL:  ";
+    cout << "\n\t\t Введите сообщение для всех пользователей:  ";
     string strAll;
-    cin >> strAll;
+    getline(cin >> ws, strAll); 
 
     T->Sender->m_data[razmerSendera - 1] = _id;
     T->Sender->resizeSender();
 
-    T->Messenger->m_chat[razmerMessengera-1] = _name + " writes to All : " + strAll;
+    T->Messenger->m_chat[razmerMessengera - 1] = _name + " : " + strAll;
     T->Messenger->resize();
 
-    T->Recipient->m_data[razmerRecipienta-1] = -1;// "-1" взял наобум, хоть "-3" , все что с "-1" это отпрвака всем;
+    T->Recipient->m_data[razmerRecipienta - 1] = -1; // "-1" взял наобум, хоть "-3" , все что с "-1" это отпрвака всем;
     T->Recipient->resizeRecipient();
 }
 
@@ -147,9 +147,9 @@ void Account::GetMessage(Chat* T)	// прочитать  сообщение
         if (T->Recipient->m_data[i] == _id || (T->Sender->m_data[i] != _id && T->Recipient->m_data[i] == -1))
             // проверка совпадения id получателя и если отпрвалено всем, то чтобы самому не отоброжалось сообщение всем
         {
-            cout << "\n\n\t +++++      YOU HAVE A MESSAGE!! from ";
+            cout << "\n\n\t +++++    Новое сообщение от  ";
             cout << T->Messenger->m_chat[i] << endl;
-            cout << "\n\t It's Id is : # " << T->Sender->m_data[i] << "   ++++++" << "\n" << endl;
+          //  cout << "\n\t It's Id is : # " << T->Sender->m_data[i] << "   ++++++" << "\n" << endl;
             count++;
         }
     if (!count) cout << "\n\t\t\t\ ----    Нет новых сообщений  -----! \n" << endl;
@@ -228,7 +228,8 @@ void accMasive::setNewAccount(string newAcc, string newPar)			// new account
     }
     m_acc[++i3]._name = newAcc;
     m_acc[i3]._parole = newPar;
-    m_acc[i3]._id = i3+1;
+    
+    m_acc[i3]._id = i3;
     m_acc[i3]._currentUser = false;
     accMasive::resize(++n3);
     std::cout << "\nАккаунт успешно зарегистрирован! Ваш ID: " << m_acc[i3]._id << endl;
@@ -371,6 +372,8 @@ void Menu()
             }
             case 3:
                 exitApp = false;
+                delete Acc;
+                delete Chat1;
                 break;
             default:
                 std::cout << "Неверный выбор. Попробуйте снова." << endl;
