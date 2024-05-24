@@ -17,7 +17,7 @@ static int n3 = 1; // начальный размер массива польз�
 Class.h stringMasive <br>
 
 ``` C++
-class stringMasive {
+class stringMasive { // класс сообщений
 public:
   int m_length; // размер массива
   string* m_chat = new string[m_length]; // массив сообщений
@@ -34,7 +34,7 @@ public:
 Class.h IntArray <br> 
 
 ``` C++
-class IntArray {
+class IntArray { // класс размерности
 public:
   int m_length10; // размер массива
   int* m_data = new int[m_length10]; // массив пользователей отправителей-получателей
@@ -50,12 +50,36 @@ public:
 
 Class.h Chat <br> 
 ``` C++
-class Chat {
+class Chat { // класс структуры
 public:
   stringMasive* Messenger; // Контейнер сообщений
   IntArray* Sender // Контейнер отправителей
   IntArray* Recipient // Контейнер получателей
   Chat(); // Конструктор
   ~Chat(); // Деструктор
+}
+```
+<br>
+
+Class.h Account
+``` C++
+class Account { // Класс пользователей
+public:
+  bool _currentUser; // 
+  string _name, _parole; // Имя, Пароль
+  short _id; // id пользователя
+  Account(); // Конструктор
+  Account(string name); // Конструктор аккаунта с именем
+  Account(string name, short id); // Конструктор
+  Account(string name, string parole);
+  ~Account(); // Деструктор
+
+  void setLogin(string newLogin); // Новый логин
+  void setPassword(string newPassword); // Новый пароль
+  void setMessage(Chat* T, int UserID); // Написать конкретному пользователю по его id
+  void setMesAll(Chat* T); // Написать в чат всем
+
+  void GetMessage(Chat* T); // Прочитать сообщение
+  void changeUser(string newLogin, string newPassword);
 }
 ```
