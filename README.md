@@ -33,6 +33,7 @@ public:
 
 Class.h IntArray <br> 
 
+``` C++
 class IntArray {
 public:
   int m_length10; // размер массива
@@ -44,3 +45,4 @@ public:
   void resizeSender(); // Изменение размера массива
   void resizeRecipient(); // Изменение размера массива отправителя-получателя
 }
+```
