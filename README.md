@@ -46,3 +46,16 @@ public:
   void resizeRecipient(); // Изменение размера массива отправителя-получателя
 }
 ```
+<br>
+
+Class.h Chat <br> 
+``` C++
+class Chat {
+public:
+  stringMasive* Messenger; // Контейнер сообщений
+  IntArray* Sender // Контейнер отправителей
+  IntArray* Recipient // Контейнер получателей
+  Chat(); // Конструктор
+  ~Chat(); // Деструктор
+}
+```
