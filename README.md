@@ -28,6 +28,17 @@ public:
 }
 ```
 <br>
-Class.h IntArray
+Class.h IntArray <br>
 ```
+class IntArray {
+public:
+  int m_length10; // размер массива
+  int* m_data = new int[m_length10]; // массив пользователей отправителей-получателей
+  IntArray(); // Конструктор
+  IntArray(int length);
+  ~IntArray(); // Деструктор
+
+  void resizeSender(); // Изменение размера массива
+  void resizeRecipient(); // Изменение размера массива отправителя-получателя
+}
 ```
