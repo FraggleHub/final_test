@@ -233,7 +233,7 @@ void accMasive::setNewAccount(string newAcc, string newPar)			// new account
     m_acc[razmerAccMasive-1]._name = newAcc;
     m_acc[razmerAccMasive-1]._parole = newPar;
     
-    m_acc[razmerAccMasive-1]._id = razmerAccMasive-1;
+    m_acc[razmerAccMasive-1]._id = razmerAccMasive;
     std::cout << "\nАккаунт успешно зарегистрирован! Ваш ID: " << m_acc[razmerAccMasive - 1]._id << endl;
     accMasive::resize();
     
@@ -311,8 +311,8 @@ void Menu()
                 std::cout << "Введите пароль: ";
                 std::cin >> newParole;
 
-                if (Acc->m_acc[Id]._name == newAccount && Acc->m_acc[Id]._parole == newParole) {
-                    Acc->updateCurrentUser(Id);
+                if (Acc->m_acc[Id-1]._name == newAccount && Acc->m_acc[Id-1]._parole == newParole) {
+                    Acc->updateCurrentUser(Id-1);
                     bool logoutAccount = true;
 
                     while (logoutAccount) {
@@ -333,7 +333,7 @@ void Menu()
                             // cin.ignore();
                             // getline(cin, messageText);
 
-                            Acc->m_acc[Id].setMesAll(Chat1);
+                            Acc->m_acc[Id-1].setMesAll(Chat1);
 
                             std::cout << "Сообщение успешно отправлено всем пользователям!" << endl;
 
@@ -350,17 +350,17 @@ void Menu()
                                 // cin.ignore();
                                 // getline(cin, messageText);
 
-                                Acc->m_acc[Id].setMessage(Chat1, recipientId); // отправляем сообщение конкретному пользователю
+                                Acc->m_acc[Id-1].setMessage(Chat1, recipientId); // отправляем сообщение конкретному пользователю
                                 std::cout << "Сообщение успешно отправлено " << endl;
                             }
                             else
                                 std::cout << "Получатель с ID " << recipientId << " не существует. Попробуйте снова." << endl;
                             break;
                         case 3:
-                            Acc->m_acc[Id].GetMessage(Chat1);
+                            Acc->m_acc[Id-1].GetMessage(Chat1);
                             break;
                         case 4:
-                            Acc->m_acc[Id].changeUser(newLogin, newPassword);
+                            Acc->m_acc[Id-1].changeUser(newLogin, newPassword);
                             break;
                         case 5:
                             logoutAccount = false;
