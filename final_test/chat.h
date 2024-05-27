@@ -1,14 +1,12 @@
 ﻿#pragma once
 #include <iostream>
+//#include <string>
 
 using namespace std;
 
-#pragma region global int
+//#pragma region global int
 
-static int i3 = -1; // элемент массива (пользователь одновременно и его ID)
-static int n3 = 1; // размер массива (количество аккаунтов или пользователей)
-
-#pragma endregion
+//#pragma endregion
 
 #pragma region chatMassive
 
@@ -104,7 +102,7 @@ public:
     accMasive(int length);
     ~accMasive();
 
-    void resize(int newLength); // ресайзер (добавляет аккаунт)
+    void resize(); // ресайзер (добавляет аккаунт)
     //void setAccount();  старая функция заменил на setNewAccount
     void setNewAccount(string newAcc, string newPar);//создание нового аккаунта
     void showAllUsers();

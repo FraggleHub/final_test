@@ -5,6 +5,9 @@ using namespace std;
 
 #pragma region global init
 
+//static int i3 = -1; // элемент массива (пользователь одновременно и его ID)
+static int razmerAccMasive = 1; // размер массива (количество аккаунтов или пользователей)
+
 //static int i0 = -1;// элемент массива (отправитель Sender)
 static int razmerSendera = 1; // размер массива (отправители Sender)
 
@@ -191,14 +194,14 @@ accMasive::accMasive() {}
 accMasive::accMasive(int length) :acc_length(length) {}
 accMasive::~accMasive() { delete[]m_acc; }
 
-void accMasive::resize(int newLength) // ресайзер 
+void accMasive::resize() // ресайзер 
 {
-    Account* m1_acc = new Account[newLength];
+    Account* m1_acc = new Account[++razmerAccMasive];
     for (int index = 0; index < acc_length; ++index)
         m1_acc[index] = m_acc[index];
     delete[] m_acc;
     m_acc = m1_acc;
-    acc_length = newLength;
+    acc_length = razmerAccMasive;
 }
 
 /* void accMasive::setAccount()			// new account
@@ -218,7 +221,7 @@ void accMasive::resize(int newLength) // ресайзер
 
 void accMasive::setNewAccount(string newAcc, string newPar)			// new account
 {
-    for (int i = 0; i < n3; ++i)
+    for (int i = 0; i < razmerAccMasive; ++i)
     {
         if (m_acc[i]._name == newAcc)
         {
@@ -226,19 +229,20 @@ void accMasive::setNewAccount(string newAcc, string newPar)			// new account
             return;
         }
     }
-    m_acc[++i3]._name = newAcc;
-    m_acc[i3]._parole = newPar;
+    m_acc[razmerAccMasive-1]._currentUser = false;// эту строку где лучше? перед или после манипуляций?
+    m_acc[razmerAccMasive-1]._name = newAcc;
+    m_acc[razmerAccMasive-1]._parole = newPar;
     
-    m_acc[i3]._id = i3;
-    m_acc[i3]._currentUser = false;
-    accMasive::resize(++n3);
-    std::cout << "\nАккаунт успешно зарегистрирован! Ваш ID: " << m_acc[i3]._id << endl;
+    m_acc[razmerAccMasive-1]._id = razmerAccMasive-1;
+    std::cout << "\nАккаунт успешно зарегистрирован! Ваш ID: " << m_acc[razmerAccMasive - 1]._id << endl;
+    accMasive::resize();
+    
 }
 
 void accMasive::showAllUsers()
 {
     std::cout << "Все зарегистрированные пользователи:" << std::endl;
-    for (int i = 0; i < n3; ++i)
+    for (int i = 0; i < razmerAccMasive; ++i)
     {
         if (!m_acc[i]._name.empty())
         {
@@ -254,7 +258,7 @@ void accMasive::showAllUsers()
 
 void accMasive::updateCurrentUser(int Id) //Метод для обновления текущего пользователя 
 {
-    for (int i = 0; i < n3; ++i)
+    for (int i = 0; i < razmerAccMasive; ++i)
         if (m_acc[i]._currentUser)
             m_acc[i]._currentUser = false;
     m_acc[Id]._currentUser = true;
@@ -267,7 +271,7 @@ void Menu()
 {
    // string messageText;
     string newAccount, newParole;
-    accMasive* Acc = new accMasive(n3);
+    accMasive* Acc = new accMasive(razmerAccMasive);
     Chat* Chat1 = new Chat;
     bool exitApp = true;
     int choice, choice1, Id, recipientId;
@@ -341,7 +345,7 @@ void Menu()
 
                             recipientId = stoi(input);
 
-                            if (recipientId >= 0 && recipientId < n3) {
+                            if (recipientId >= 0 && recipientId < razmerAccMasive) {
                                 // cout << "Введите текст сообщения для отправки пользователю - " << endl;
                                 // cin.ignore();
                                 // getline(cin, messageText);
